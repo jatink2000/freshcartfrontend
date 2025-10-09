@@ -1,33 +1,30 @@
 import axios from 'axios'
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2'
 
-function Signup() {
+function Login() {
 
-  let [signup, setsignup] = useState({})
+  let [Login, setLogin] = useState({})
 
   let inputvalue = (e) => {
-    setsignup({
-      ...signup, [e.target.name]: e.target.value
+    setLogin({
+      ...Login, [e.target.name]: e.target.value
     })
   }
 
-  let go=useNavigate()
 
   let submitbtn = () => {
-    axios.post("http://localhost:5000/signup", { signup }).then((res) => {
+    axios.post("http://localhost:5000/Login", { Login }).then((res) => {
       if (res.data.status) {
         Swal.fire({
-          title: "signup success",
+          title: "Login success",
           icon: "success"
         });
-        go("/")
       }
       else {
         Swal.fire({
           icon: "error",
-          title: "failed to success",
+          title: "Invalid user...",
         });
       }
     }).catch((err) => {
@@ -40,14 +37,13 @@ function Signup() {
 
   return (
     <>
-      <h1>signup component</h1>
-
+      <h1>Login component</h1>
       <input type='email' placeholder='enter your email' name='email' onChange={inputvalue} />
       <input type='password' placeholder='enter your password' name='password' onChange={inputvalue} />
-      <button onClick={submitbtn}>signup</button>
+      <button onClick={submitbtn}>Login</button>
 
     </>
   )
 }
 
-export default Signup
+export default Login
